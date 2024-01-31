@@ -3,6 +3,8 @@
 namespace App\EventSubscriber;
 
 use App\Entity\Category;
+use App\Entity\Order;
+use App\Entity\OrderDetails;
 use App\Entity\Product;
 use App\Entity\User;
 use App\Repository\CategoryRepository;
@@ -30,7 +32,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
     {
         return [
             AfterEntityPersistedEvent::class => ["uploadImage"],
-            BeforeEntityPersistedEvent::class => ["hashPassword"]
+            BeforeEntityPersistedEvent::class => [["hashPassword"], ["mergeDuplicateProduct"]]
         ];
     }
 
@@ -92,5 +94,43 @@ class EasyAdminSubscriber implements EventSubscriberInterface
                 $password
             )
         );
+    }
+
+    public function mergeDuplicateProduct(BeforeEntityPersistedEvent $event): void
+    {
+        $entity = $event->getEntityInstance();
+
+        if (!($entity instanceof Order)) {
+            return;
+        }
+
+        $oderDetails = [];
+
+        foreach ($entity->getOrderDetails() as $orderDetail) {
+            $product = $orderDetail->getProduct();
+            $quantity = $orderDetail->getQuantity();
+
+            if (array_key_exists($product->getId(), $oderDetails)) {
+                $oderDetails[$product->getId()]["quantity"] += $quantity;
+            } else {
+                $oderDetails[$product->getId()] = [
+                    "product" => $product,
+                    "quantity" => $quantity
+                ];
+            }
+        }
+
+        $result = array_map(function ($orderDetail) {
+            $orderDetails = new OrderDetails();
+            $orderDetails->setQuantity($orderDetail["quantity"]);
+            $orderDetails->setProduct($orderDetail["product"]);
+            return $orderDetails;
+        }, $oderDetails);
+
+        $entity->getOrderDetails()->clear();
+
+        foreach ($result as $orderDetail) {
+            $entity->addOrderDetail($orderDetail);
+        }
     }
 }
