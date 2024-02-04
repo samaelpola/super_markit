@@ -1,0 +1,72 @@
+{% extends '@EasyAdmin/crud/detail.html.twig' %}
+
+{% set order = entity.instance %}
+
+{% block content_title %} #ORDER-{{ order.id }} {% endblock %}
+
+{% block main %}
+	<div class="row mt-5 w-100">
+		<div class="card col-3 shadow">
+			<div class="card-body d-flex flex-column gap-2">
+				<h6 class="card-title">
+					<i class="fa-solid fa-user pe-1"></i>
+					User information
+				</h6>
+				<span class="fs-6">First name</span>
+				<span class="fs-6">Last name</span>
+				<span class="fs-6">Email : {{ order.user.email }}</span>
+				<span class="fs-6">Addresses </span>
+			</div>
+			<div class="card-body d-flex flex-column gap-2">
+				<h6 class="card-title">
+					<i class="fa-solid fa-circle-info pe-1"></i>
+					Order information
+				</h6>
+				<span class="fs-6">ID : {{ order.id }}</span>
+				<span class="fs-6">Amount : {{ order.getAmount() }} €</span>
+				<span class="fs-6">created_at : {{ order.getCreatedAt()|date('d-m-Y H:i:s') }}</span>
+				<span class="badge py-1 text-white text-bg-{{ constant('App\\Entity\\ORDER::BADGE_COLOR')[order.getOrderStatus] }}">
+					{{ order.getOrderStatusName(order.getOrderStatus) }}
+				</span>
+			</div>
+		</div>
+		<div class="col-1"></div>
+		<div class="card col-8 h-auto shadow">
+			<div class="card-body">
+				<h5 class="card-title">Products</h5>
+				<table id="table" class="table table-striped">
+					<thead class="table-light">
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Name</th>
+						<th scope="col">Quantity</th>
+						<th scope="col">Unit price</th>
+						<th scope="col">Total price</th>
+					</tr>
+					</thead>
+					<tbody>
+					{% for orderDetail in order.getOrderDetails() %}
+						<tr>
+							<td class="align-middle">
+								{{ orderDetail.id }}
+							</td>
+							<td class="align-middle">
+								{{ orderDetail.product.getName() }}
+							</td>
+							<td class="align-middle">
+								{{ orderDetail.getQuantity() }}
+							</td>
+							<td class="align-middle">
+								€ {{ orderDetail.product.getPrice() }}
+							</td>
+							<td class="align-middle">
+								€ {{ orderDetail.getQuantity() *  orderDetail.product.getPrice() }}
+							</td>
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

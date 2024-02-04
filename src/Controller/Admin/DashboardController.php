@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Category;
+use App\Entity\Order;
 use App\Entity\Product;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -42,5 +43,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Article');
         yield MenuItem::linkToCrud('Categories', 'fas fa-tags', Category::class);
         yield MenuItem::linkToCrud('Product', 'fas fa-list', Product::class);
+        yield MenuItem::linkToCrud('Order', 'fas fa-shopping-cart', Order::class);
     }
 }

@@ -14,6 +14,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -51,6 +52,10 @@ class ProductCrudController extends AbstractCrudController
             TextField::new('name'),
             AssociationField::new('category'),
             NumberField::new("stock"),
+            MoneyField::new("price")
+                ->setCurrency("EUR")
+                ->setTextAlign('left')
+                ->setStoredAsCents(false),
             TextareaField::new('description'),
             DateTimeField::new('created_at')
                 ->hideOnForm(),
