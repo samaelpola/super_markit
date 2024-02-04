@@ -4,6 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    bucketEndPoint: '%env(BUCKET_ENDPOINT)%'
+    bucketName: '%env(BUCKET_NAME)%'
 
 services:
     # default configuration for services in *this* file
@@ -22,3 +24,20 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    Aws\S3\S3Client:
+        arguments:
+            -   version: '%env(VERSION)%'
+                region: '%env(REGION)%'
+                credentials:
+                    key: '%env(ACCESS_ID)%'
+                    secret: '%env(SECRET_KEY)%'
+                use_path_style_endpoint: true
+                endpoint: '%env(BUCKET_ENDPOINT)%'
+
+    App\EventSubscriber\EasyAdminSubscriber:
+        tags: [ kernel.event_subscriber ]
+
+    App\Service\FileManager:
+        arguments:
+            $bucketName: '%env(BUCKET_NAME)%'
