@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Verify Email{% endblock %}
+
+{% block body %}
+	<div class="container vh-100 d-flex justify-content-center align-items-center">
+		<div class="row shadow">
+			<div class="login-form bg-light mt-4 p-4">
+				<h1 class="h3 mb-3 font-weight-normal">Verify your Email</h1>
+				<p>
+					A verification email was dispatched upon your registration. Kindly click on it to activate your
+					account prior to logging in. <br><br>
+					In case you haven't received it, please utilize the "Re-send Email"
+					button to request another dispatch.
+				</p>
+				<form method="post">
+					<button type="submit" class="btn btn-primary">Re-send Email</button>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}
