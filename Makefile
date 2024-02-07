@@ -20,3 +20,6 @@ install:
 
 migration:
 	docker compose run app php bin/console doctrine:migration:migrate
+
+asset:
+	docker compose run app php bin/console asset-map:compile

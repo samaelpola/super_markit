@@ -76,6 +76,8 @@ class UserCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->hideOnForm(),
+            TextField::new('last_name'),
+            TextField::new('first_name'),
             EmailField::new('email'),
             TextField::new('password')
                 ->setFormType(RepeatedType::class)
@@ -86,11 +88,11 @@ class UserCrudController extends AbstractCrudController
                         'row_attr' => ['class' => 'col-md-6 col-xxl-5']
                     ],
                     'second_options' => [
-                        'label' => 'repeat password',
+                        'label' => 'Confirm password',
                         'row_attr' => ['class' => 'col-md-6 col-xxl-5']
                     ],
                 ])
-                ->onlyOnForms(),
+                ->onlyWhenCreating(),
             ChoiceField::new('roles')
                 ->setChoices(self::ROLES)
                 ->allowMultipleChoices()

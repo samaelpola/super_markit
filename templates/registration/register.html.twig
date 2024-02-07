@@ -3,21 +3,60 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
+	{% for flash_error in app.flashes('verify_email_error') %}
+		<div class="alert alert-danger alert-dismissible fade show mt-3 m-auto w-75 d-flex align-items-center"
+			 role="alert">
+			<i class="fa-solid fa-triangle-exclamation px-3"></i>
+			<div class="">{{ flash_error }}</div>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	{% endfor %}
+	
+	<div class="flex-container m-auto mt-2">
+		<div class="image-container"></div>
+		<div class="content-container">
+			<div class="d-flex justify-content-center">
+				<img class="logo" src="{{ asset('img/Logo.png') }}" alt="logo">
+			</div>
 
-    <h1>Register</h1>
+			<h3 class="text-center mb-3 pb-2">Register</h3>
 
-    {{ form_errors(registrationForm) }}
+			<a href="#" class="d-flex justify-content-center align-items-center w-100 btn btn-outline-dark mb-3">
+				<div class="p-1">
+					<img class="icon" src="{{ asset('img/google.svg') }}" alt="google">
+				</div>
+				<span class="button-text">Sign in with Google</span>
+			</a>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+			<div class="d-flex justify-content-between align-items-center mt-2 py-3">
+				<span class="separator"></span>
+				<a href="#" class="email-login">or Register with email</a>
+				<span class="separator"></span>
+			</div>
+			{{ form_errors(registrationForm) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+			{{ form_start(registrationForm) }}
+			<div class="row">
+				<div class="col">
+					{{ form_row(registrationForm.lastName) }}
+				</div>
+				<div class="col">
+					{{ form_row(registrationForm.firstName) }}
+				</div>
+			</div>
+			{{ form_row(registrationForm.email) }}
+			{{ form_row(registrationForm.plainPassword) }}
+			{{ form_row(registrationForm.agreeTerms) }}
+			<div class="mb-3">
+				<button type="submit" class="btn btn-outline-primary w-100 p-2">Register</button>
+			</div>
+			{{ form_end(registrationForm) }}
+
+			<div class="d-flex justify-content-between align-items-center mt-2 py-3">
+				<span class="separator"></span>
+				<a href="{{ path('app_login') }}" class="sign-up">You have an account sign in</a>
+				<span class="separator"></span>
+			</div>
+		</div>
+	</div>
 {% endblock %}

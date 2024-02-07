@@ -1,3 +1,117 @@
-body {
-    background-color: skyblue;
+.flex-container {
+    display: flex;
+    width: 100%;
+    max-width: 100rem;
+    overflow: hidden;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.image-container {
+    display: none;
+    background-size: cover;
+    background-image: url('/img/e-commerce.jpg');
+
+    @media (min-width: 1024px) {
+        display: block;
+        width: 50%;
+    }
+}
+
+.content-container {
+    padding: 2rem 1.5rem;
+    width: 100%;
+
+    @media (min-width: 768px) {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    @media (min-width: 1024px) {
+        width: 50%;
+    }
+}
+
+.logo {
+    width: auto;
+    height: 6rem;
+
+    @media (min-width: 640px) {
+        height: 8rem;
+    }
+}
+
+.welcome-text {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    text-align: center;
+    color: #4B5563;
+}
+
+.icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.button-text {
+    width: 83%;
+    font-weight: 700;
+    text-align: center;
+}
+
+.separator {
+    border: 0.5px solid #888888;
+    width: 20%;
+
+    @media (min-width: 1024px) {
+        width: 25%;
+    }
+}
+
+.email-login {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    text-align: center;
+    color: #6B7280;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    color: #4B5563;
+}
+
+.forget-password {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: #6B7280;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.sign-up {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: #6B7280;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }
