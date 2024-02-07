@@ -11,7 +11,7 @@
 			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
 	{% endfor %}
-	
+
 	<div class="flex-container m-auto mt-2">
 		<div class="image-container"></div>
 		<div class="content-container">
@@ -21,7 +21,8 @@
 
 			<h3 class="text-center mb-3 pb-2">Register</h3>
 
-			<a href="#" class="d-flex justify-content-center align-items-center w-100 btn btn-outline-dark mb-3">
+			<a href="{{ path('connect') }}"
+			   class="d-flex justify-content-center align-items-center w-100 btn btn-outline-dark mb-3">
 				<div class="p-1">
 					<img class="icon" src="{{ asset('img/google.svg') }}" alt="google">
 				</div>

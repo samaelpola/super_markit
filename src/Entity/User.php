@@ -46,6 +46,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Address::class)]
     private Collection $addresses;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $google_id = null;
+
     const ROLES = ["ROLE_ACCOUNTANT", "ROLE_ADMIN", "ROLE_CASHIER"];
 
     public function __construct()
@@ -221,6 +224,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $address->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getGoogleId(): ?string
+    {
+        return $this->google_id;
+    }
+
+    public function setGoogleId(?string $google_id): static
+    {
+        $this->google_id = $google_id;
 
         return $this;
     }
