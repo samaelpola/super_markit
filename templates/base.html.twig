@@ -14,6 +14,10 @@
 	{% endblock %}
 </head>
 <body>
+{% block navbar %}
+	{% include 'includes/navbar.html.twig' %}
+{% endblock %}
+
 {% for message in app.flashes('success') %}
 	<div class="alert alert-success alert-dismissible fade show mt-3 m-auto w-75 d-flex align-items-center"
 		 role="alert">
@@ -32,6 +36,12 @@
 	</div>
 {% endfor %}
 
-{% block body %}{% endblock %}
+<div id="body-container">
+	{% block body %}{% endblock %}
+</div>
+
+{% block footer %}
+	{% include 'includes/footer.html.twig' %}
+{% endblock %}
 </body>
 </html>

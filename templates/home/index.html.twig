@@ -3,18 +3,37 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
-</div>
+	<section class="section-products">
+		<div class="container">
+			<div class="row justify-content-center text-center">
+				<div class="col-md-8 col-lg-6">
+					<div class="header">
+						<h2>Popular Products</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row gap-3">
+				{% for product in products %}
+					<div class="col-md-6 col-lg-4 px-0 col-xl-3 shadow">
+						<div id="product" class="single-product">
+							<div class="img-card-product-container p-0">
+								<img src="{{ path('app_get_picture', {'id': product.id, 'type': 'product'}) }}"
+									 class="object-fit-fill w-100 h-auto d-block" alt="photo">
+								<ul>
+									<li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
+									<li><a href="#"><i class="fas fa-heart"></i></a></li>
+									<li><a href="#"><i class="fas fa-expand"></i></a></li>
+								</ul>
+							</div>
+							<div class="card-product-detail px-3">
+								<h3 class="product-title">{{ product.name }}</h3>
+								<h4 class="product-old-price">$79.99</h4>
+								<h4 class="product-price">${{ product.price }}</h4>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
 {% endblock %}
