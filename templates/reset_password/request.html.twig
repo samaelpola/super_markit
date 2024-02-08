@@ -7,13 +7,13 @@
 		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
 	{% endfor %}
 
-	<div class="vh-100 w-100 d-flex justify-content-center align-items-center">
+	<div class="h-100 w-100 d-flex justify-content-center align-items-center" style="margin-top: 10rem">
 		<div class="card shadow p-3 border-0">
 			<h3 class="my-3">Reset your password</h3>
 
 			{{ form_start(requestForm) }}
 			{{ form_row(requestForm.email) }}
-			<div class="my-3">
+			<div class="my-4">
 				<small>
 					Enter your email address and you will receive a link to reset your password <br>
 					if you have an account with this email.
