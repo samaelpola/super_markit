@@ -56,7 +56,12 @@ class ProductCrudController extends AbstractCrudController
                 ->setCurrency("EUR")
                 ->setTextAlign('left')
                 ->setStoredAsCents(false),
-            TextareaField::new('description'),
+            MoneyField::new("old_price")
+                ->setCurrency("EUR")
+                ->setTextAlign('left')
+                ->setStoredAsCents(false),
+            TextareaField::new('description')
+                ->hideOnIndex(),
             DateTimeField::new('created_at')
                 ->hideOnForm(),
             DateTimeField::new('updated_at')

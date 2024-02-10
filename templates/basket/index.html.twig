@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shopping basket{% endblock %}
+
+{% block body %}
+	<div class="card shadow w-75 m-auto p-4 border-0 mt-4">
+		<div class="col">
+			<div class="d-flex align-items-center justify-content-start gap-3 p-2">
+				<h4><b>Shopping Basket</b></h4>
+			</div>
+			{% if shoppingBasket|length == 0 %}
+				<div class="d-flex justify-content-center align-items-center">
+					<span class="fs-4"> Your basket is empty </span>
+				</div>
+			{% else %}
+				{% for item in shoppingBasket %}
+					{% set product = item["product"] %}
+					{% set category = product.getCategory() %}
+					<div class="row border-top m-3 pb-3 pt-5">
+						<div class="m-auto row align-items-center">
+							<div class="col-2 d-flex justify-content-center">
+								<img class="img-fluid"
+									 src="{{ path('app_get_picture', {'id': product.getId(), 'type': 'product'}) }}"
+									 alt="product photo"
+									 style="width: 5rem; height: 5rem"
+								>
+							</div>
+							<div class="col d-flex flex-column align-items-start">
+								<div class="row text-muted  my-1">{{ product.getName() }}</div>
+								<div class="row">{{ category.getName() }}</div>
+							</div>
+							<div class="col d-flex justify-content-center align-items-center gap-3">
+								<a href="{{ path('app_reduce_product_quantity_to_basket', {'id': product.getId()}) }}"
+								   class="btn btn-danger">
+									<i class="fa-solid fa-minus"></i>
+								</a>
+								<input type="text" class="form-control text-center"
+									   value="{{ item["quantity"] }}"
+									   disabled
+									   style="max-width: 4rem"
+								>
+								<a href="{{ path('app_add_product_quantity_to_basket', {'id': product.getId()}) }}"
+								   class="btn {{ item["quantity"] == product.getStock() ? "btn-secondary disabled" : "btn-success" }}">
+									<i class="fa-solid fa-plus"></i>
+								</a>
+							</div>
+							<div class="col d-flex justify-content-center">
+								<span class="text-center"> $ {{ product.getPrice() }} </span>
+							</div>
+							<div class="col d-flex justify-content-center">
+								<span class="text-center"> $ {{ product.getPrice() * item["quantity"] }} </span>
+							</div>
+							<div class="col d-flex align-items-center justify-content-center gap-3">
+								<a href="#">
+									<i class="fa-solid fa-heart fa-xl text-danger"></i>
+								</a>
+								<a href="{{ path('app_remove_product_to_basket', {'id': product.id}) }}">
+									<i class="fa-solid fa-trash fa-xl text-secondary"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+				<div class="row border-top m-3 pb-2 pt-4">
+					<div class="m-auto row align-items-center">
+						<div class="col-6 d-flex justify-content-center">
+							<span class="fs-4">Total</span>
+						</div>
+						<div class="col d-flex justify-content-center">
+							<span class="text-center"> $ {{ total }} </span>
+						</div>
+					</div>
+				</div>
+			{% endif %}
+			<div class="d-flex justify-content-between align-items-center border-top p-3 mt-4">
+				<a href="{{ path('app_home') }}" class="btn btn-secondary mt-2">
+					<i class="fa-solid fa-arrow-left fa-beat fa-lg me-2"></i>
+					<span>back to shop</span>
+				</a>
+				{% if shoppingBasket|length > 0 %}
+					<a href="#" class="btn btn-outline-success mt-2">
+						<span class="me-2">validate basket</span>
+						<i class="fa-solid fa-cart-arrow-down fa-bounce fa-lg"></i>
+					</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

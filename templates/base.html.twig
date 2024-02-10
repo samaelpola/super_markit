@@ -18,25 +18,25 @@
 	{% include 'includes/navbar.html.twig' %}
 {% endblock %}
 
-{% for message in app.flashes('success') %}
-	<div class="alert alert-success alert-dismissible fade show mt-3 m-auto w-75 d-flex align-items-center"
-		 role="alert">
-		<i class="fa-regular fa-circle-check fa-lg px-3"></i>
-		<div class="">{{ message }}</div>
-		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-	</div>
-{% endfor %}
-
-{% for message in app.flashes('error') %}
-	<div class="alert alert-danger alert-dismissible fade show mt-3 m-auto w-75 d-flex align-items-center"
-		 role="alert">
-		<i class="fa-regular fa-circle-xmark fa-lg px-3"></i>
-		<div class="">{{ message }}</div>
-		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-	</div>
-{% endfor %}
-
 <div id="body-container">
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-success alert-dismissible fade show mt-5 m-auto w-75 d-flex align-items-center"
+			 role="alert">
+			<i class="fa-regular fa-circle-check fa-lg px-3"></i>
+			<div class="">{{ message }}</div>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	{% endfor %}
+
+	{% for message in app.flashes('error') %}
+		<div class="alert alert-danger alert-dismissible fade show mt-5 m-auto w-75 d-flex align-items-center"
+			 role="alert">
+			<i class="fa-regular fa-circle-xmark fa-lg px-3"></i>
+			<div class="">{{ message }}</div>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	{% endfor %}
+
 	{% block body %}{% endblock %}
 </div>
 
