@@ -33,7 +33,16 @@
 			<div class="d-flex justify-content-around align-items-center">
 				<div class="mx-3">
 					<a href="#"><i class="fa-solid fa-heart fa-xl mx-2 text-danger"></i></a>
-					<a href="#"><i class="fa-solid fa-cart-shopping fa-xl mx-2"></i></a>
+					<a href="{{ path('app_shopping_basket') }}" class="position-relative">
+						<i class="fa-solid fa-cart-shopping fa-xl mx-2">
+							{% if numberOfProduct is defined and numberOfProduct > 0 %}
+								<span class="fw-light position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+									  style="font-size: 0.7rem;">
+									+{{ numberOfProduct }}
+								</span>
+							{% endif %}
+						</i>
+					</a>
 				</div>
 				<div class="ms-4 d-flex align-items-center">
 					{% if app.user %}

@@ -39,6 +39,16 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Product[]|null
+     */
+    public function getProductsVisible(): ?array
+    {
+        return $this->findBy([
+            "visible" => true
+        ]);
+    }
+
 //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */

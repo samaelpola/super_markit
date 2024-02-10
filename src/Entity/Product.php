@@ -50,6 +50,9 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: OrderDetails::class)]
     private Collection $orderDetails;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $old_price = null;
+
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
@@ -211,6 +214,18 @@ class Product
                 $orderDetail->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOldPrice(): ?float
+    {
+        return $this->old_price;
+    }
+
+    public function setOldPrice(?float $old_price): static
+    {
+        $this->old_price = $old_price;
 
         return $this;
     }

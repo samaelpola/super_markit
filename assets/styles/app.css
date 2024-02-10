@@ -125,6 +125,7 @@ body {
 
 #body-container {
     flex: 1;
+    margin-top: 6rem !important;
 }
 
 .footer-main {
@@ -204,7 +205,7 @@ body {
 /* card product */
 
 .section-products {
-    padding: 80px 0 54px;
+    padding: 10px 0 54px;
 }
 
 .section-products .header {
