@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AddressRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AddressRepository::class)]
@@ -13,48 +15,29 @@ class Address
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private int $street_number;
-
-    #[ORM\Column(length: 255)]
-    private string $street;
-
     #[ORM\Column(length: 255)]
     private string $city;
 
     #[ORM\Column]
     private int $zip;
 
-    #[ORM\ManyToOne(inversedBy: 'addresses')]
-    private ?User $user = null;
+    #[ORM\OneToMany(mappedBy: 'address', targetEntity: Order::class)]
+    private Collection $orders;
+
+    #[ORM\Column(length: 255, unique: true)]
+    private ?string $line1 = null;
+
+    #[ORM\Column(length: 255, unique: true, nullable: true)]
+    private ?string $line2 = null;
+
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getStreetNumber(): int
-    {
-        return $this->street_number;
-    }
-
-    public function setStreetNumber(int $street_number): static
-    {
-        $this->street_number = $street_number;
-
-        return $this;
-    }
-
-    public function getStreet(): string
-    {
-        return $this->street;
-    }
-
-    public function setStreet(string $street): static
-    {
-        $this->street = $street;
-
-        return $this;
     }
 
     public function getCity(): string
@@ -81,14 +64,56 @@ class Address
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getLine1(): ?string
     {
-        return $this->user;
+        return $this->line1;
     }
 
-    public function setUser(?User $user): static
+    public function setLine1(string $line1): static
     {
-        $this->user = $user;
+        $this->line1 = $line1;
+
+        return $this;
+    }
+
+    public function getLine2(): ?string
+    {
+        return $this->line2;
+    }
+
+    public function setLine2(?string $line2): static
+    {
+        $this->line2 = $line2;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrder(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): static
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setAddress($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): static
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getAddress() === $this) {
+                $order->setAddress(null);
+            }
+        }
 
         return $this;
     }

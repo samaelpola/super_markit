@@ -78,7 +78,7 @@
 					<span>back to shop</span>
 				</a>
 				{% if shoppingBasket|length > 0 %}
-					<a href="#" class="btn btn-outline-success mt-2">
+					<a href="{{ path('app_validate_shopping_basket') }}" class="btn btn-outline-success mt-2">
 						<span class="me-2">validate basket</span>
 						<i class="fa-solid fa-cart-arrow-down fa-bounce fa-lg"></i>
 					</a>

@@ -65,7 +65,7 @@ class OrderCrudController extends AbstractCrudController
     {
         $order = new Order();
         $order->setCreatedAt(new \DateTimeImmutable('now'));
-        $order->setOrderStatus(Order::STATUS_IN_PROGRESS);
+        $order->setOrderStatus(Order::STATUS_UNPAID_ORDER);
         $order->setUser($this->getUser());
 
         return $order;

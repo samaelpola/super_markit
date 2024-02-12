@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Payment Success{% endblock %}
+
+{% block body %}
+	<div class="container d-flex align-items-center justify-content-center mt-5">
+		<div class="shadow p-5 rounded">
+			<div class="d-flex flex-column justify-content-center align-items-center row-gap-3">
+				<svg class="text-success" style="width: 7rem; height: 7rem" data-slot="icon" fill="none"
+					 stroke-width="1.5"
+					 stroke="currentColor"
+					 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+					<path stroke-linecap="round" stroke-linejoin="round"
+						  d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
+				</svg>
+				<h1 class="fw-bold fs-5">Thank you !</h1>
+				<span class="text-center lead">Your payment has been processed successfully.</span>
+				<p class="lead">
+					A confirmation e-mail will be sent to you as soon as possible. Thank you for your purchase!
+				</p>
+				<div class="d-flex justify-content-between align-items-center w-100">
+					<a href="{{ path('app_home') }}" class="btn btn-secondary">
+						<i class="fa-solid fa-arrow-left fa-beat fa-lg me-2"></i>
+						<span>back to shop</span>
+					</a>
+					<a href="{{ path('app_order') }}" class="btn btn-outline-success">
+						<span class="me-2">Go to order</span>
+						<i class="fa-solid fa-cart-shopping fa-lg"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

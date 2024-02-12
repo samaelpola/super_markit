@@ -11,20 +11,26 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: '`order`')]
 class Order
 {
-    const STATUS_IN_PROGRESS = 0;
-    const STATUS_EXPEDITED = 1;
-    const STATUS_RECEIVED = 2;
+    const STATUS_UNPAID_ORDER = 0;
+    const STATUS_PAID_ORDER = 1;
+    const STATUS_ORDER_IN_PROGRESS = 2;
+    const STATUS_ORDER_EXPEDITED = 3;
+    const STATUS_ORDER_RECEIVED = 4;
 
     const STATUS_LIST = [
-        self::STATUS_IN_PROGRESS => 'STATUS_IN_PROGRESS',
-        self::STATUS_EXPEDITED => 'STATUS_EXPEDITED',
-        self::STATUS_RECEIVED => 'STATUS_RECEIVED'
+        self::STATUS_UNPAID_ORDER => 'STATUS_UNPAID_ORDER',
+        self::STATUS_PAID_ORDER => 'STATUS_PAID_ORDER',
+        self::STATUS_ORDER_IN_PROGRESS => 'STATUS_ORDER_IN_PROGRESS',
+        self::STATUS_ORDER_EXPEDITED => 'STATUS_ORDER_EXPEDITED',
+        self::STATUS_ORDER_RECEIVED => 'STATUS_ORDER_RECEIVED'
     ];
 
     const BADGE_COLOR = [
-        self::STATUS_IN_PROGRESS => 'warning',
-        self::STATUS_EXPEDITED => 'primary',
-        self::STATUS_RECEIVED => 'success'
+        self::STATUS_UNPAID_ORDER => 'danger',
+        self::STATUS_PAID_ORDER => 'info',
+        self::STATUS_ORDER_IN_PROGRESS => 'warning',
+        self::STATUS_ORDER_EXPEDITED => 'primary',
+        self::STATUS_ORDER_RECEIVED => 'success'
     ];
 
     #[ORM\Id]
@@ -44,6 +50,9 @@ class Order
 
     #[ORM\OneToMany(mappedBy: 'order', targetEntity: OrderDetails::class, cascade: ["persist", "remove"])]
     private Collection $orderDetails;
+
+    #[ORM\ManyToOne(cascade: ["persist", "remove"], inversedBy: 'order')]
+    private ?Address $address = null;
 
     public function __construct()
     {
@@ -136,5 +145,17 @@ class Order
         }
 
         return $amount;
+    }
+
+    public function getAddress(): ?Address
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?Address $address): static
+    {
+        $this->address = $address;
+
+        return $this;
     }
 }
