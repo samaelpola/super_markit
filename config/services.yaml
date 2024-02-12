@@ -41,3 +41,7 @@ services:
     App\Service\FileManager:
         arguments:
             $bucketName: '%env(BUCKET_NAME)%'
+
+    App\Service\StripeService:
+        arguments:
+            $stripeSecretKey: '%env(STRIPE_SECRET_KEY)%'

@@ -12,10 +12,10 @@
 					<i class="fa-solid fa-user pe-1"></i>
 					User information
 				</h6>
-				<span class="fs-6">First name</span>
-				<span class="fs-6">Last name</span>
+				<span class="fs-6">First name: {{ order.user.firstName }}</span>
+				<span class="fs-6">Last name: {{ order.user.lastName }}</span>
 				<span class="fs-6">Email : {{ order.user.email }}</span>
-				<span class="fs-6">Addresses </span>
+				<span class="fs-6 text-nowrap">Addresses: {{ order.address.line1 }}, {{ order.address.zip }} {{ order.address.city }} </span>
 			</div>
 			<div class="card-body d-flex flex-column gap-2">
 				<h6 class="card-title">
