@@ -44,4 +44,7 @@ return [
         'version' => '6.5.1',
         'type' => 'css',
     ],
+    'bootstrap/dist/js/bootstrap.bundle.min.js' => [
+        'version' => '5.3.2',
+    ],
 ];

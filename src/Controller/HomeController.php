@@ -21,7 +21,7 @@ class HomeController extends AbstractController
     {
         return $this->render('home/index.html.twig', [
             'products' => $this->productRepository->getProductsVisible(),
-            'numberOfProduct' => count($request->getSession()->get("shopping_basket", []))
+            'numberOfProduct' => array_sum($request->getSession()->get("shopping_basket", []))
         ]);
     }
 }

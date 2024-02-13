@@ -20,7 +20,7 @@ class ProductController extends AbstractController
 
         return $this->render("product/index.html.twig", [
             "product" => $product,
-            'numberOfProduct' => count($request->getSession()->get("shopping_basket", []))
+            'numberOfProduct' => array_sum($request->getSession()->get("shopping_basket", []))
         ]);
     }
 }

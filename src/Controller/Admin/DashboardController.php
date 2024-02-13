@@ -20,6 +20,10 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
         $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
+        if ($this->isGranted('ROLE_CASHIER')) {
+            return $this->redirect($adminUrlGenerator->setController(ProductCrudController::class)->generateUrl());
+        }
+
         return $this->redirect($adminUrlGenerator->setController(UserCrudController::class)->generateUrl());
     }
 
@@ -38,11 +42,18 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::section('Users');
-        yield MenuItem::linkToCrud('Users', 'fas fa-user', User::class);
-        yield MenuItem::section('Article');
-        yield MenuItem::linkToCrud('Categories', 'fas fa-tags', Category::class);
-        yield MenuItem::linkToCrud('Product', 'fas fa-list', Product::class);
-        yield MenuItem::linkToCrud('Order', 'fas fa-shopping-cart', Order::class);
+        yield MenuItem::linkToUrl('Home', 'fa-solid fa-house-user', $this->generateUrl("app_home"));
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+            yield MenuItem::section('Users');
+            yield MenuItem::linkToCrud('Users', 'fas fa-user', User::class);
+        }
+
+        if ($this->isGranted('ROLE_CASHIER')) {
+            yield MenuItem::section('Article');
+            yield MenuItem::linkToCrud('Categories', 'fas fa-tags', Category::class);
+            yield MenuItem::linkToCrud('Product', 'fas fa-list', Product::class);
+            yield MenuItem::linkToCrud('Order', 'fas fa-shopping-cart', Order::class);
+        }
     }
 }

@@ -112,8 +112,14 @@ class Category
     /**
      * @return Collection<int, Product>
      */
-    public function getProducts(): Collection
+    public function getProducts(bool $visibleOnly = false): Collection
     {
+        if ($visibleOnly) {
+            return $this->products->filter(function ($product) {
+                return $product->isVisible();
+            });
+        }
+
         return $this->products;
     }
 

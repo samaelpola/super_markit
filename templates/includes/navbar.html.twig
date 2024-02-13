@@ -32,7 +32,9 @@
 			</ul>
 			<div class="d-flex justify-content-around align-items-center">
 				<div class="mx-3">
-					<a href="#"><i class="fa-solid fa-heart fa-xl mx-2 text-danger"></i></a>
+					<a href="#">
+						<i class="fa-solid fa-heart fa-xl mx-2 text-danger"></i>
+					</a>
 					<a href="{{ path('app_shopping_basket') }}" class="position-relative">
 						<i class="fa-solid fa-cart-shopping fa-xl mx-2">
 							{% if numberOfProduct is defined and numberOfProduct > 0 %}
@@ -46,10 +48,43 @@
 				</div>
 				<div class="ms-4 d-flex align-items-center">
 					{% if app.user %}
-						<a href="#"><i class="fa-regular fa-circle-user fa-2xl mx-2 text-secondary"></i></a>
-						<a class="icon-link icon-link-hover mb-0 ms-2" href="{{ path('app_logout') }}">
-							Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
-						</a>
+						<div class="dropdown-center">
+							<button class="dropdown-toggle btn btn-outline-dark" type="button"
+									data-bs-toggle="dropdown"
+									aria-expanded="false">
+								<i class="fa-solid fa-circle-user fa-2xl"></i>
+							</button>
+							<ul class="dropdown-menu">
+								{% if is_granted("ROLE_CASHIER") or is_granted("ROLE_ACCOUNTANT") %}
+									<li>
+										<a class="dropdown-item" href="{{ path('app_admin') }}">
+											<i class="fa-solid fa-table-columns me-2"></i>
+											Dashboard
+										</a>
+									</li>
+								{% endif %}
+								<li>
+									<a class="dropdown-item" href="#">
+										<i class="fa-solid fa-address-card me-2"></i>
+										profile
+									</a>
+								</li>
+								{% if app.user.googleId is null %}
+									<li>
+										<a class="dropdown-item" href="{{ path('app_forgot_password_request') }}">
+											<i class="fa-solid fa-repeat me-2"></i>
+											Reset password
+										</a>
+									</li>
+								{% endif %}
+								<li>
+									<a class="dropdown-item" href="{{ path('app_logout') }}">
+										<i class="fa-solid fa-arrow-right-from-bracket me-2"></i>
+										<span>Logout</span>
+									</a>
+								</li>
+							</ul>
+						</div>
 					{% else %}
 						<a class="btn btn-outline-dark mb-0 mx-2" href="{{ path('app_register') }}">sign up</a>
 						<a class="btn btn-outline-primary mb-0" href="{{ path('app_login') }}">sign in</a>

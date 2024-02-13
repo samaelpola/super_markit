@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Security;
+namespace App\Security\Authentication;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
@@ -94,13 +94,7 @@ class GoogleAuthenticator extends OAuth2Authenticator
         }
 
         return new RedirectResponse(
-            $this->router->generate(
-                count(
-                    array_intersect(User::ROLES, $token->getRoleNames())
-                ) > 0
-                    ? "app_admin"
-                    : "app_home"
-            )
+            $this->router->generate("app_home")
         );
     }
 

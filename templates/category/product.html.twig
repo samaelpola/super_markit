@@ -12,13 +12,13 @@
 					</div>
 				</div>
 			</div>
-			{% if category.products|length == 0 %}
+			{% if category.getProducts(true)|length == 0 %}
 				<div class="d-flex justify-content-center align-items-center">
 					<span class="fs-4">This category has no products</span>
 				</div>
 			{% else %}
 				<div class="row gap-3 d-flex justify-content-center">
-					{% for product in category.products %}
+					{% for product in category.getProducts(true) %}
 						<div class="col-md-6 col-lg-4 px-0 col-xl-3 shadow">
 							<div id="product" class="single-product">
 								<div class="img-card-product-container p-0">
