@@ -31,7 +31,7 @@ class Category
 
     private File|UploadedFile|null $pictureFile = null;
 
-    #[ORM\OneToMany(mappedBy: 'category_id', targetEntity: Product::class)]
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Product::class)]
     private Collection $products;
 
     public function __construct()
