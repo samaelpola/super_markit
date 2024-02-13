@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categories{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="row justify-content-center text-center">
+			<div class="col-md-8 col-lg-6 my-5">
+				<h2>Categories</h2>
+			</div>
+		</div>
+		<div class="row gap-3 d-flex justify-content-center">
+			{% for category in categories %}
+				<div class="col-md-6 col-lg-4 px-0 col-xl-3 shadow rounded">
+					<div class="h-75 p-0">
+						<img src="{{ path('app_get_picture', {'id': category.id, 'type': 'category'}) }}"
+							 class="object-fit-fill w-100 h-100 d-block" alt="photo">
+					</div>
+					<div class="d-flex flex-column gap-3 align-items-center justify-content-center px-3 my-4">
+						<span class="text-center fs-4">{{ category.name }}</span>
+						<a href="{{ path('app_product_of_category', {id: category.id}) }}"
+						   class="btn btn-outline-primary w-100">
+							<i class="fa-regular fa-eye fa-lg me-2"></i>
+							view
+						</a>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ category.name }} {% endblock %}
+
+{% block body %}
+	<section class="section-products">
+		<div class="container">
+			<div class="row justify-content-center text-center">
+				<div class="col-md-8 col-lg-6">
+					<div class="header">
+						<h2>{{ category.name }}</h2>
+					</div>
+				</div>
+			</div>
+			{% if category.products|length == 0 %}
+				<div class="d-flex justify-content-center align-items-center">
+					<span class="fs-4">This category has no products</span>
+				</div>
+			{% else %}
+				<div class="row gap-3 d-flex justify-content-center">
+					{% for product in category.products %}
+						<div class="col-md-6 col-lg-4 px-0 col-xl-3 shadow">
+							<div id="product" class="single-product">
+								<div class="img-card-product-container p-0">
+									<img src="{{ path('app_get_picture', {'id': product.id, 'type': 'product'}) }}"
+										 class="object-fit-cover w-100 h-100 d-block" alt="photo">
+									<ul>
+										<li>
+											<a href="{{ path('app_add_product_to_basket', {'id': product.id, 'quantity': 1}) }}">
+												<i class="fas fa-shopping-cart"></i>
+											</a>
+										</li>
+										<li><a href="#"><i class="fas fa-heart"></i></a></li>
+										<li>
+											<a href="{{ path('app_view_product', {'id': product.id}) }}">
+												<i class="fas fa-expand"></i>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="card-product-detail px-3">
+									<h3 class="product-title">{{ product.name }}</h3>
+									{% if product.oldPrice is not null %}
+										<h4 class="product-old-price">${{ product.oldPrice }}</h4>
+									{% endif %}
+									<h4 class="product-price">${{ product.price }}</h4>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			{% endif %}
+		</div>
+	</section>
+{% endblock %}
