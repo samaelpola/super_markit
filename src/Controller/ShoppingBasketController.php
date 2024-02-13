@@ -37,7 +37,7 @@ class ShoppingBasketController extends AbstractController
 
         return $this->render("basket/index.html.twig", [
             "shoppingBasket" => $basket,
-            "numberOfProduct" => count($shoppingBasket),
+            "numberOfProduct" => array_sum($shoppingBasket),
             "total" => $total
         ]);
     }

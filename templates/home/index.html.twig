@@ -14,7 +14,7 @@
 			</div>
 			<div class="row gap-3 d-flex justify-content-center">
 				{% for product in products %}
-					<div class="col-md-6 col-lg-4 px-0 col-xl-3 shadow">
+					<div class="col-md-6 col-lg-4 px-0 col-xl-3 shadow rounded">
 						<div id="product" class="single-product">
 							<div class="img-card-product-container p-0">
 								<img src="{{ path('app_get_picture', {'id': product.id, 'type': 'product'}) }}"

@@ -22,10 +22,11 @@ class OrderController extends AbstractController
     }
 
     #[Route("/order", name: "app_order")]
-    public function order(): Response
+    public function order(Request $request): Response
     {
         return $this->render("order/order.html.twig", [
-            "orders" => $this->getUser()->getOrders()
+            "orders" => $this->getUser()->getOrders(),
+            'numberOfProduct' => array_sum($request->getSession()->get("shopping_basket", []))
         ]);
     }
 
@@ -79,10 +80,11 @@ class OrderController extends AbstractController
     }
 
     #[Route("/order/{id}/detail", name: "app_order_detail")]
-    public function orderDetail(Order $order): Response
+    public function orderDetail(Order $order, Request $request): Response
     {
         return $this->render("order/order_detail.html.twig", [
-            "order" => $order
+            "order" => $order,
+            'numberOfProduct' => array_sum($request->getSession()->get("shopping_basket", []))
         ]);
     }
 }

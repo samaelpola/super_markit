@@ -2,7 +2,6 @@
 
 namespace App\Security\Authentication;
 
-use App\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,20 +41,11 @@ class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterf
             $targetPath !== $this->router->generate('app_login') &&
             $targetPath !== $this->router->generate('app_register')
         ) {
-            var_dump($targetPath);
             return new RedirectResponse($targetPath);
         }
-        var_dump(count(
-            array_intersect(User::ROLES, $token->getRoleNames())
-        ));
+
         return new RedirectResponse(
-            $this->router->generate(
-                count(
-                    array_intersect(User::ROLES, $token->getRoleNames())
-                ) > 0
-                    ? "app_admin"
-                    : "app_home"
-            )
+            $this->router->generate("app_home")
         );
     }
 }
