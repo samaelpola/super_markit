@@ -1,0 +1,64 @@
+<div class="row d-flex justify-content-center align-items-center">
+	<div class="col-12 col-md-10 p45">
+		<div class="d-flex justify-content-between">
+			<div class="order-tracking {{ constant('App\\Entity\\ORDER::STATUS_PAID_ORDER') <= order.orderStatus ? "completed" : "" }}">
+				<span class="is-complete"></span>
+				<p>Order paid</p>
+			</div>
+			<div class="order-tracking {{ constant('App\\Entity\\ORDER::STATUS_ORDER_IN_PROGRESS') <= order.orderStatus ? "completed" : "" }}">
+				<span class="is-complete"></span>
+				<p>Order in progress</p>
+			</div>
+			<div class="order-tracking {{ constant('App\\Entity\\ORDER::STATUS_ORDER_EXPEDITED') <= order.orderStatus ? "completed" : "" }}">
+				<span class="is-complete"></span>
+				<p>Order expedited</p>
+			</div>
+			<div class="order-tracking {{ constant('App\\Entity\\ORDER::STATUS_ORDER_RECEIVED') <= order.orderStatus ? "completed" : "" }}">
+				<span class="is-complete"></span>
+				<p>Order received</p>
+			</div>
+		</div>
+	</div>
+</div>
+{% for item in order.orderDetails %}
+	{% set product = item.product %}
+	{% set category = product.getCategory() %}
+	<div class="row border-top m-3 pb-3 pt-5">
+		<div class="m-auto row align-items-center">
+			<div class="col-2 d-flex justify-content-center">
+				<img class="img-fluid"
+					 src="{{ path('app_get_picture', {'id': product.getId(), 'type': 'product'}) }}"
+					 alt="product photo"
+					 style="width: 5rem; height: 5rem"
+				>
+			</div>
+			<div class="col d-flex flex-column align-items-start">
+				<div class="row text-muted  my-1">{{ product.getName() }}</div>
+				<div class="row">{{ category.getName() }}</div>
+			</div>
+			<div class="col d-flex justify-content-center align-items-center gap-3">
+				<input type="text" class="form-control text-center"
+					   value="{{ item.quantity }}"
+					   disabled
+					   style="max-width: 4rem"
+				>
+			</div>
+			<div class="col d-flex justify-content-center">
+				<span class="text-center"> $ {{ product.getPrice() }} </span>
+			</div>
+			<div class="col d-flex justify-content-center">
+				<span class="text-center"> $ {{ product.getPrice() * item.quantity }} </span>
+			</div>
+		</div>
+	</div>
+{% endfor %}
+<div class="row border-top m-3 pb-2 pt-4">
+	<div class="m-auto row align-items-center">
+		<div class="col-9 d-flex justify-content-center me-5">
+			<span class="fs-4">Total</span>
+		</div>
+		<div class="col d-flex justify-content-center">
+			<span class="text-center"> $ {{ order.amount }} </span>
+		</div>
+	</div>
+</div>

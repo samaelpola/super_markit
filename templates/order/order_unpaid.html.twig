@@ -1,0 +1,49 @@
+{% for item in order.orderDetails %}
+	{% set product = item.product %}
+	{% set category = product.getCategory() %}
+	<div class="row border-top m-3 pb-3 pt-5">
+		<div class="m-auto row align-items-center">
+			<div class="col-2 d-flex justify-content-center">
+				<img class="img-fluid"
+					 src="{{ path('app_get_picture', {'id': product.getId(), 'type': 'product'}) }}"
+					 alt="product photo"
+					 style="width: 5rem; height: 5rem"
+				>
+			</div>
+			<div class="col d-flex flex-column align-items-start">
+				<div class="row text-muted  my-1">{{ product.getName() }}</div>
+				<div class="row">{{ category.getName() }}</div>
+			</div>
+			<div class="col d-flex justify-content-center align-items-center gap-3">
+				<input type="text" class="form-control text-center"
+					   value="{{ item.quantity }}"
+					   disabled
+					   style="max-width: 4rem"
+				>
+			</div>
+			<div class="col d-flex justify-content-center">
+				<span class="text-center"> $ {{ product.getPrice() }} </span>
+			</div>
+			<div class="col d-flex justify-content-center">
+				<span class="text-center"> $ {{ product.getPrice() *  item.quantity }} </span>
+			</div>
+		</div>
+	</div>
+{% endfor %}
+<div class="row border-top m-3 pt-4">
+	<div class="m-auto row align-items-center pt-4">
+		<div class="col-9 d-flex justify-content-center me-5">
+			<span class="fs-4">Total</span>
+		</div>
+		<div class="col d-flex justify-content-center">
+			<span class="text-center"> $ {{ order.amount }} </span>
+		</div>
+	</div>
+</div>
+<div class="d-flex justify-content-end align-items-center border-top p-3 pt-4 mt-5">
+	<a href="{{ path('app_create_session_stripe', {'id': order.id}) }}"
+	   class="btn btn-outline-success">
+		<span class="me-2">paid order</span>
+		<i class="fa-solid fa-cart-shopping fa-lg"></i>
+	</a>
+</div>

@@ -146,10 +146,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * @param int|null $orderStatus
      * @return Collection<int, Order>
      */
-    public function getOrders(): Collection
+    public function getOrders(?int $orderStatus = null): Collection
     {
+        if ($orderStatus !== null) {
+            return $this->orders->filter(function (Order $order) use ($orderStatus) {
+                return $order->getOrderStatus() == $orderStatus;
+            });
+        }
+
         return $this->orders;
     }
 
