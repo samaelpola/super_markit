@@ -74,7 +74,7 @@ class GetPicture extends AbstractController
         $response->headers->set("Content-Type", "image/{$extension}");
         $response->headers->set("Content-Disposition", $disposition);
         $response->headers->set("Content-Length", strlen($file));
-        $response->headers->set("Expires", gmdate("D, d M Y H:i:s", strtotime("+1 week")) . " GMT");
+        $response->headers->set("Expires", gmdate("D, d M Y H:i:s", strtotime("+2 day")) . " GMT");
 
         return $response;
     }
