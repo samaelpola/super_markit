@@ -24,4 +24,12 @@ class HomeController extends AbstractController
             'numberOfProduct' => array_sum($request->getSession()->get("shopping_basket", []))
         ]);
     }
+
+    #[Route('/profile', name: 'app_profile')]
+    public function showProfile(Request $request): Response
+    {
+        return $this->render('home/profile.html.twig', [
+            'numberOfProduct' => array_sum($request->getSession()->get("shopping_basket", []))
+        ]);
+    }
 }

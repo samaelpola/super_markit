@@ -18,7 +18,7 @@
 						<div id="product" class="single-product">
 							<div class="img-card-product-container p-0">
 								<img src="{{ path('app_get_picture', {'id': product.id, 'type': 'product'}) }}"
-									 class="object-fit-cover w-100 h-100 d-block" alt="photo">
+									 class="object-fit-fill w-100 h-100" alt="photo">
 								<ul>
 									<li>
 										<a href="{{ path('app_add_product_to_basket', {'id': product.id, 'quantity': 1}) }}">
