@@ -22,10 +22,16 @@ class OrderController extends AbstractController
     }
 
     #[Route("/order", name: "app_order")]
-    public function order(Request $request): Response
+    public function order(Request $request, #[MapQueryParameter] ?int $orderStatus = null): Response
     {
+        $orders = $this->getUser()->getOrders();
+
+        if ($orderStatus !== null && $orderStatus !== -1) {
+            $orders = $this->getUser()->getOrders($orderStatus);
+        }
+
         return $this->render("order/order.html.twig", [
-            "orders" => $this->getUser()->getOrders(),
+            "orders" => $orders,
             'numberOfProduct' => array_sum($request->getSession()->get("shopping_basket", []))
         ]);
     }
