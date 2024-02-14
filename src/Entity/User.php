@@ -47,11 +47,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $google_id = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Favourite::class)]
+    private Collection $favourites;
+
     const ROLES = ["ROLE_ACCOUNTANT", "ROLE_ADMIN", "ROLE_CASHIER"];
 
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->favourites = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -203,6 +207,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setGoogleId(?string $google_id): static
     {
         $this->google_id = $google_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Favourite>
+     */
+    public function getFavourites(): Collection
+    {
+        return $this->favourites;
+    }
+
+    public function addFavourite(Favourite $favourite): static
+    {
+        if (!$this->favourites->contains($favourite)) {
+            $this->favourites->add($favourite);
+            $favourite->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavourite(Favourite $favourite): static
+    {
+        if ($this->favourites->removeElement($favourite)) {
+            // set the owning side to null (unless already changed)
+            if ($favourite->getUser() === $this) {
+                $favourite->setUser(null);
+            }
+        }
 
         return $this;
     }

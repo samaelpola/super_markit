@@ -39,6 +39,7 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_CASHIER }
         - { path: ^/order, roles: ROLE_USER }
+        - { path: ^/favourite, roles: ROLE_USER }
 
 when@test:
     security:

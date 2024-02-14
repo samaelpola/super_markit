@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ category.name }} {% endblock %}
+{% block title %}Favourites{% endblock %}
 
 {% block body %}
 	<section class="section-products">
@@ -8,18 +8,19 @@
 			<div class="row justify-content-center text-center">
 				<div class="col-md-8 col-lg-6">
 					<div class="header">
-						<h2>{{ category.name }}</h2>
+						<h2>Favourites Products</h2>
 					</div>
 				</div>
 			</div>
-			{% if category.getProducts(true)|length == 0 %}
+			{% if favourites|length == 0 %}
 				<div class="d-flex justify-content-center align-items-center">
-					<span class="fs-4">This category has no products</span>
+					<span class="fs-4">You don't have any favorite products</span>
 				</div>
 			{% else %}
 				<div class="row gap-3 d-flex justify-content-center">
-					{% for product in category.getProducts(true) %}
-						<div class="col-md-6 col-lg-4 px-0 col-xl-3 shadow">
+					{% for favourite in favourites %}
+						{% set product = favourite.product %}
+						<div class="col-md-6 col-lg-4 px-0 col-xl-3 shadow rounded">
 							<div id="product" class="single-product">
 								<div class="img-card-product-container p-0">
 									<img src="{{ path('app_get_picture', {'id': product.id, 'type': 'product'}) }}"
@@ -31,8 +32,8 @@
 											</a>
 										</li>
 										<li>
-											<a href="{{ path('app_add_favourite', {id: product.id}) }}">
-												<i class="fas fa-heart"></i>
+											<a href="{{ path('app_remove_favourite', {id: product.id}) }}">
+												<i class="fa-solid fa-trash"></i>
 											</a>
 										</li>
 										<li>
