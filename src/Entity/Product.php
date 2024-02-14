@@ -53,9 +53,13 @@ class Product
     #[ORM\Column(nullable: true)]
     private ?float $old_price = null;
 
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Favourite::class)]
+    private Collection $favourites;
+
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
+        $this->favourites = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -226,6 +230,36 @@ class Product
     public function setOldPrice(?float $old_price): static
     {
         $this->old_price = $old_price;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Favourite>
+     */
+    public function getFavourites(): Collection
+    {
+        return $this->favourites;
+    }
+
+    public function addFavourite(Favourite $favourite): static
+    {
+        if (!$this->favourites->contains($favourite)) {
+            $this->favourites->add($favourite);
+            $favourite->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavourite(Favourite $favourite): static
+    {
+        if ($this->favourites->removeElement($favourite)) {
+            // set the owning side to null (unless already changed)
+            if ($favourite->getProduct() === $this) {
+                $favourite->setProduct(null);
+            }
+        }
 
         return $this;
     }
