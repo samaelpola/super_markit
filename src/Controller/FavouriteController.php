@@ -21,10 +21,11 @@ class FavouriteController extends AbstractController
     }
 
     #[Route('/favourite', name: 'app_favourite')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
         return $this->render('favourite/index.html.twig', [
             'favourites' => $this->getUser()->getFavourites(),
+            'numberOfProduct' => array_sum($request->getSession()->get("shopping_basket", []))
         ]);
     }
 

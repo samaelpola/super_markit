@@ -20,6 +20,7 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
         $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
+
         if ($this->isGranted('ROLE_CASHIER')) {
             return $this->redirect($adminUrlGenerator->setController(ProductCrudController::class)->generateUrl());
         }
@@ -42,7 +43,7 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToUrl('Home', 'fa-solid fa-house-user', $this->generateUrl("app_home"));
+        yield MenuItem::linkToUrl('Back to shop', 'fa-solid fa-house-user', $this->generateUrl("app_home"));
 
         if ($this->isGranted('ROLE_ADMIN')) {
             yield MenuItem::section('Users');

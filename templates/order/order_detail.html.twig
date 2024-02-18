@@ -3,6 +3,17 @@
 {% block title %}Order{% endblock %}
 
 {% block body %}
+	{% if order.orderStatus ==  constant('App\\Entity\\ORDER::STATUS_UNPAID_ORDER') %}
+		<div class="alert alert-danger alert-dismissible fade show mt-3 mb-5 m-auto w-75 d-flex align-items-center"
+			 role="alert">
+			<i class="fa-regular fa-circle-xmark fa-lg px-3"></i>
+			<div class="">
+				You have {{ (date(order.createdAt|date_modify("+7 day")).diff(date('now'))).days }} days left to pay the
+				order otherwise it will be deleted
+			</div>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	{% endif %}
 	<div class="card shadow w-75 m-auto p-4 border-0 mt-4">
 		<div class="col">
 			<div class="d-flex justify-content-between align-items-center p-2">

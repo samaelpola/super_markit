@@ -46,7 +46,9 @@
 							</div>
 							<div class="col d-flex justify-content-center">
 								<span class="text-center text-nowrap">
-									{{ order.address.line1 }}, {{ order.address.zip }} {{ order.address.city }}
+									{% if order.address != null %}
+										{{ order.address.line1 }}, {{ order.address.zip }} {{ order.address.city }}
+									{% endif %}
 								</span>
 							</div>
 							<div class="col d-flex justify-content-center">
