@@ -45,3 +45,7 @@ services:
     App\Service\StripeService:
         arguments:
             $stripeSecretKey: '%env(STRIPE_SECRET_KEY)%'
+
+    App\Command\DeleteOrderCommand:
+        arguments:
+            $retentionDay: '%env(NUMBER_OF_RETENTION_DAYS_OF_UNPAID_ORDERS)%'
