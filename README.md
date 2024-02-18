@@ -8,6 +8,11 @@ Creating an ecommerce site with symfony framework
 make
 ```
 
+#### after launch app
+```
+make asset
+```
+
 ### Build project
 
 ```
