@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Product{% endblock %}
 
 {% block body %}
 	<section class="section-products">
@@ -40,9 +40,9 @@
 							<div class="card-product-detail px-3">
 								<h3 class="product-title">{{ product.name }}</h3>
 								{% if product.oldPrice is not null %}
-									<h4 class="product-old-price">${{ product.oldPrice }}</h4>
+									<h4 class="product-old-price">€ {{ product.oldPrice }}</h4>
 								{% endif %}
-								<h4 class="product-price">${{ product.price }}</h4>
+								<h4 class="product-price">€ {{ product.price }}</h4>
 							</div>
 						</div>
 					</div>

@@ -13,6 +13,7 @@ services:
         depends_on:
             - mariadb
             - redis-commander
+            - minio
 
     mariadb:
         image: mariadb:10.6.15

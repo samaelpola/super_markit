@@ -47,6 +47,7 @@ class OrderController extends AbstractController
 
         try {
             $order = $this->orderService->createOrder($shoppingBasket, $this->getUser());
+            $request->getSession()->remove("shopping_basket");
         } catch (\InvalidArgumentException $exception) {
             $this->addFlash("error", $exception->getMessage());
             return $this->redirectToRoute("app_shopping_basket");
@@ -66,7 +67,6 @@ class OrderController extends AbstractController
     #[Route("/order/{id}/success", name: "app_payment_success")]
     public function paymentSuccess(Request $request, Order $order, #[MapQueryParameter] string $session_id): Response
     {
-        $request->getSession()->remove("shopping_basket");
         $session = $this->stripeService->getCheckoutSession($session_id);
 
         $this->orderService->updateOrderAddressAndOrderStatus(

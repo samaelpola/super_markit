@@ -19,9 +19,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class GetPicture extends AbstractController
 {
     public function __construct(
-        private FileManager        $fileManager,
-        private ProductRepository  $productRepository,
-        private CategoryRepository $categoryRepository
+        private readonly FileManager        $fileManager,
+        private readonly ProductRepository  $productRepository,
+        private readonly CategoryRepository $categoryRepository
     )
     {
     }

@@ -37,10 +37,11 @@ security:
         ROLE_ADMIN: [ ROLE_CASHIER, ROLE_ACCOUNTANT ]
 
     access_control:
-        - { path: ^/admin, roles: ROLE_CASHIER }
+        - { path: ^/admin, roles: [ ROLE_CASHIER, ROLE_ACCOUNTANT ] }
         - { path: ^/order, roles: ROLE_USER }
         - { path: ^/favourite, roles: ROLE_USER }
         - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/reset-password, roles: ROLE_USER }
 
 when@test:
     security:
