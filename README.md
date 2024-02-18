@@ -41,6 +41,10 @@ make
 make asset
 ```
 
+```
+make migration
+```
+
 Open http://localhost:8000 with your browser to see the result.
 
 link useful:
