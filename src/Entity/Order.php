@@ -51,7 +51,7 @@ class Order
     #[ORM\OneToMany(mappedBy: 'order', targetEntity: OrderDetails::class, cascade: ["persist", "remove"])]
     private Collection $orderDetails;
 
-    #[ORM\ManyToOne(cascade: ["persist", "remove"], inversedBy: 'order')]
+    #[ORM\ManyToOne(cascade: ["persist"], inversedBy: 'order')]
     private ?Address $address = null;
 
     public function __construct()
