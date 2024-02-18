@@ -39,6 +39,19 @@ class OrderRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Order[]|null
+     */
+    public function getOrdersWhoseStatusIsNotUnpaid(): ?array
+    {
+        return $this->createQueryBuilder("o")
+            ->orderBy("o.created_at", "ASC")
+            ->andWhere("o.order_status != :orderStatus")
+            ->setParameter("orderStatus", Order::STATUS_UNPAID_ORDER)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Order[] Returns an array of Order objects
 //     */

@@ -17,6 +17,7 @@ clear:
 
 install:
 	docker compose run app composer install
+	docker compose run app php bin/console importmap:install
 
 migration:
 	docker compose run app php bin/console doctrine:migration:migrate

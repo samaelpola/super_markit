@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@popperjs/core'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+
 /*
  * Welcome to your app's main JavaScript file!
  *
