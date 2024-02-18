@@ -32,11 +32,11 @@ class DashboardController extends AbstractDashboardController
     {
         $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
 
-        if ($this->isGranted('ROLE_CASHIER')) {
-            return $this->redirect($adminUrlGenerator->setController(ProductCrudController::class)->generateUrl());
+        if ($this->isGranted('ROLE_ACCOUNTANT')) {
+            return $this->redirectToRoute("app_finance_dashboard");
         }
 
-        return $this->redirect($adminUrlGenerator->setController(UserCrudController::class)->generateUrl());
+        return $this->redirect($adminUrlGenerator->setController(ProductCrudController::class)->generateUrl());
     }
 
     #[IsGranted("ROLE_ACCOUNTANT")]
