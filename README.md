@@ -1,4 +1,4 @@
-# project2PSF
+# SUPER MARKIT
 
 Creating an ecommerce site with symfony framework
 
