@@ -24,3 +24,10 @@ migration:
 
 asset:
 	docker compose run app php bin/console asset-map:compile
+
+test:
+	docker compose rm --stop --force minio
+	docker compose run --rm test
+
+fixture:
+	docker compose run app php bin/console doctrine:fixtures:load
