@@ -26,6 +26,9 @@ RUN chmod +x /usr/bin/wait-for-it
 RUN pecl install redis
 RUN docker-php-ext-enable redis
 
+RUN pecl install pcov
+RUN docker-php-ext-enable pcov
+
 COPY ./php.ini /usr/local/etc/php/php.ini
 COPY . .
 

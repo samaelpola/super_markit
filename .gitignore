@@ -77,3 +77,4 @@
 /assets/vendor/
 ###< symfony/asset-mapper ###
 
+coverage/

@@ -26,7 +26,7 @@ return [
         'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
     ],
     '@hotwired/turbo' => [
-        'version' => '8.0.2',
+        'version' => '7.3.0',
     ],
     'bootstrap' => [
         'version' => '5.3.2',

@@ -59,3 +59,16 @@ services:
             - "8081:8081"
         depends_on:
             - redis
+
+    test:
+        build: .
+        command: "wait-for-it 'mariadb:3306' -- php bin/phpunit --coverage-html coverage"
+        image: super-markit/test:latest
+        depends_on:
+            - mariadb
+            - redis
+            - minio
+        env_file:
+            - .env
+        volumes:
+            - ./:/var/www/html
